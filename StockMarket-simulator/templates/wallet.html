@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    wallet
+{% endblock %}
+
+{% block main %}
+<main class="wallet p-5">
+
+    <div class="wallet-info p-5 mb-5  mt-5 mb-5">
+        <div class="total-cash text-left registerPage border p-5 mx-3 rounded-pill">
+            <p>TOTAL EARNED</p>
+            <h1>{{sum}}</h1>
+
+        </div>
+        <div class="remaining-cash text-left registerPage border rounded mx-3 p-5" >
+            <p>REMAINING CASH</p>
+            <h1>{{cash}}</h1>
+
+        </div>
+    </div>
+
+
+    <table class="table table-striped">
+        <!-- <h1>history</h1> -->
+        <thead>
+            <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">Name</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+                <tr>
+                    <td><a href="/quote/{{row['symbol']}}">{{row['symbol']}}</a></td>
+                    <td>{{row['name']}}</td>
+                    <td>{{row['shares']}}</td>
+                    {% if row['profit']%}
+                    <td>{{row['price']}} <span class="badge" style="color:rgb(90 228 168); font-size:1.3rem;">+{{ row['profit_amount'] }}</span></td>
+                    {% else %}
+                    <td>{{row['price']}} <span class="badge" style="color:rgb(247, 82, 95); font-size:1.3rem">-{{ row['loss_amount'] }}</span></td>
+                    {% endif %}
+                    <td>{{row['total']}}</td>
+                </tr>
+            {% endfor %}
+                
+        </tbody>
+    </table>
+    </main>
+</div>
+{% endblock %}
